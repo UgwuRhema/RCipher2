@@ -29,13 +29,22 @@ namespace rcr {
 		explicit HashMap(std::size_t tnum)
 		: hashtab{new rcr::Entry*[tnum]()}, tabnum{tnum}, len{0}{}
 		~HashMap (){
-			rcr::Entry *curr = hashtab[0];
+			rcr::Entry *curr = this->hashtab[0];
 			while (curr){
 				rcr::Entry *next = curr->next;
 				delete curr;
 				curr = next;
 			}
-			delete[] hashtab;
+			delete[] this->hashtab;
+		}
+		rcr::Entry* lookup(const std::string& s) const noexcept
+		{
+			unsigned int hval = hash(s, this->tabnum);
+			rcr::Entry *curr = nullptr;
+			for (curr = this->hashtab[hval]; curr; curr = curr->next)
+				if (curr->key == s)
+					return curr;
+			return nullptr;	
 		}
 	};
 };
