@@ -3,12 +3,23 @@
 #include <cstring>
 
 #define MAX_ENTRY 1
-
-struct Entry
-{
-	std::string key;
-	std::string val;
-	Entry& next;
+namespace rcr {
+	struct Entry
+	{
+		std::string key;
+		std::string val;
+		Entry *next;/*since references can't be NULL*/
+	};
+	class HashMap 
+	{
+		private:
+			Entry **hashtab;
+			std::size_t tabnum;
+			std::size_t len;
+			/*constructor*/
+		explicit HashMap(std::size_t tnum)
+		: hashtab{new Entry[tnum]}, tabnum{tnum}, len{0}{}
+	};
 };
 
 int
@@ -19,11 +30,6 @@ main(int argc, char *argv[])
 		std::cerr << "RCipher2 needs an input file\n";
 		return 1;
 	}
-	std::string filename(argv[2]);
-	/*std::strung doesn't fail?*/
-	if (strcmp(argv[1], "-o") == 0)
-	{
-		/*encrypt!*/	
-	}
+	rcr::HashMap newMap(MAX_ENTRY);
 	return 0;
 }
