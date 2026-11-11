@@ -10,18 +10,19 @@ namespace rcr {
 	{
 		unsigned int hashval = 0;
 		for (std::size_t i = 0; i < s.length(); ++i)
-			if (s[i] != '\0')
 				hashval = static_cast<unsigned int>(s[i]) * 31 + hashval;
 		return hashval % n;
 	}
 	/*encrypt function*/
 	void encrypt(std::string& text, std::string& cipher)
 	{
-		for (std::size_t k = 0; k < text.length(); ++k)
+		cipher.clear();
+		cipher.reserve(text.length());
+		for (char c: text)
 		{
-			unsigned int asciiDigit = static_cast<unsigned int>(text[k]);
-			unsigned int res = asciiDigit - 2;/*this is the key*/
-			cipher[k] = res;/*i hope for an implicit cast*/
+			unsigned char safeC = static_cast<unsigned char>(c);
+			unsigned char res = (safeC >= 2) ? (safeC - 2) : (safeC + 254);
+			cipher.push_back(static_cast<char>(res));
 		}
 	}
 	struct Entry
