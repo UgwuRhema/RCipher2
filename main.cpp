@@ -19,6 +19,15 @@ namespace rcr {
 			/*constructor*/
 		explicit HashMap(std::size_t tnum)
 		: hashtab{new rcr::Entry*[tnum]()}, tabnum{tnum}, len{0}{}
+		~HashMap (){
+			rcr::Entry *curr = hashtab[0];
+			while (curr){
+				rcr::Entry *next = curr->next;
+				delete curr;
+				curr = next;
+			}
+			delete[] hashtab;
+		}
 	};
 };
 
