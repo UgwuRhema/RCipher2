@@ -2,6 +2,7 @@
 #include <string>
 #include <cstring>
 #include <format>
+#include <fstream>
 
 #define MAX_ENTRY 1
 namespace rcr {
@@ -76,10 +77,23 @@ namespace rcr {
 int
 main([[maybe_unused]]int argc, [[maybe_unused]]char *argv[])
 {
-	rcr::HashMap newMap(MAX_ENTRY);
-	std::string a, b;
-	std::cin >> a;
-	rcr::encrypt(a, b);
-	std::cout << std::format("Cipher Text: {}\n", b);
+	if (argc < 3)
+	{
+		std::cerr << "RCipher2 needs a filename\n";
+		return 1;
+	}
+	std::string filename(static_cast<std::string>(argv[2]));
+	rcr::HashMap newMap(MAX_ENTRY); /*new HashMap*/
+	if (strcmp(argv[1], "-o") == 0)
+	{
+		std::ofstream file(filename);
+		std::string plainText, cipherText;
+		std::cout << std::format("Text: ");
+		std::getline(std::cin, plainText);
+		rcr::encrypt(plainText, cipherText);
+		file << cipherText;
+		file.close();
+	}
 	return 0;
+	
 }
