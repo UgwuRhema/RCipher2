@@ -93,6 +93,9 @@ main([[maybe_unused]]int argc, [[maybe_unused]]char *argv[])
 		rcr::encrypt(plainText, cipherText);
 		file << cipherText;
 		file.close();
+	} else {
+		std::cerr << std::format("Unknown Command: '{}'\n", argv[1]);
+		return 1;
 	}
 	return 0;
 	
