@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <format>
 
 #define MAX_ENTRY 1
 namespace rcr {
@@ -12,6 +13,16 @@ namespace rcr {
 			if (s[i] != '\0')
 				hashval = static_cast<unsigned int>(s[i]) * 31 + hashval;
 		return hashval % n;
+	}
+	/*encrypt function*/
+	void encrypt(std::string& text, std::string& cipher)
+	{
+		for (std::size_t k = 0; k < text.length(); ++k)
+		{
+			unsigned int asciiDigit = static_cast<unsigned int>(text[k]);
+			unsigned int res = asciiDigit - 2;/*this is the key*/
+			cipher[k] = res;/*i hope for an implicit cast*/
+		}
 	}
 	struct Entry
 	{
@@ -46,17 +57,28 @@ namespace rcr {
 					return curr;
 			return nullptr;	
 		}
+		void add()
+		{
+			//todo: Implement add function
+		}
+		std::string get(const std::string& s) const noexcept
+		{
+			rcr::Entry *found = this->lookup(s);
+			if (found != nullptr)
+				return found->val;
+			std::cerr << std::format("\"{}\" not found\n", s);
+			return "";
+		}
 	};
 };
 
 int
-main(int argc, char *argv[])
+main([[maybe_unused]]int argc, [[maybe_unused]]char *argv[])
 {
-	if (argc < 3)
-	{
-		std::cerr << "RCipher2 needs an input file\n";
-		return 1;
-	}
 	rcr::HashMap newMap(MAX_ENTRY);
+	std::string a, b;
+	std::cin >> a;
+	rcr::encrypt(a, b);
+	std::cout << std::format("Cipher Text: {}\n", b);
 	return 0;
 }
