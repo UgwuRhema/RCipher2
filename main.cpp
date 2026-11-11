@@ -12,13 +12,13 @@ namespace rcr {
 	};
 	class HashMap 
 	{
-		private:
+		public:
 			Entry **hashtab;
 			std::size_t tabnum;
 			std::size_t len;
 			/*constructor*/
 		explicit HashMap(std::size_t tnum)
-		: hashtab{new Entry[tnum]}, tabnum{tnum}, len{0}{}
+		: hashtab{new rcr::Entry*[tnum]()}, tabnum{tnum}, len{0}{}
 	};
 };
 
