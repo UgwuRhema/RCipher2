@@ -1,9 +1,9 @@
-CFLAGS := -g -Wall -Wextra -O2 -march=native
+CFLAGS := -g -Wall -Wextra -march=native
 SRC := ./main.cpp
 OUT := ./rcipher2
 
 all: $(SRC)
-	cc $(CFLAGS) $(SRC) -o $(OUT)
+	c++ $(CFLAGS) $(SRC) -o $(OUT)
 
 run:
 	$(OUT)
