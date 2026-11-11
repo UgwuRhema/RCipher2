@@ -4,6 +4,15 @@
 
 #define MAX_ENTRY 1
 namespace rcr {
+	unsigned int
+	hash(const std::string& s, std::size_t n)
+	{
+		unsigned int hashval = 0;
+		for (std::size_t i = 0; i < s.length(); ++i)
+			if (s[i] != '\0')
+				hashval = static_cast<unsigned int>(s[i]) * 31 + hashval;
+		return hashval % n;
+	}
 	struct Entry
 	{
 		std::string key;
