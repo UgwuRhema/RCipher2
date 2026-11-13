@@ -26,6 +26,18 @@ namespace rcr {
 			cipher.push_back(static_cast<char>(res));
 		}
 	}
+	void decrypt(std::string& cipher, std::string& text)
+	{
+		text.clear();
+		text.reserve(cipher.length());
+		for (char c: cipher)
+		{
+			unsigned char safeC = static_cast<unsigned char>(c);
+			/*let's perfoem the operation on it*/
+			unsigned char res = safeC + 2;
+			text.push_back(static_cast<char>(res));
+		}
+	}
 	struct Entry
 	{
 		std::string key;
@@ -92,6 +104,12 @@ main([[maybe_unused]]int argc, [[maybe_unused]]char *argv[])
 		std::getline(std::cin, plainText);
 		rcr::encrypt(plainText, cipherText);
 		file << cipherText;
+		file.close();
+	} else if (strcmp(argv[1], "-d") == 0) {
+		std::ifstream file(filename);
+		std::string cipherText, plainText;
+		while (std::getline(file, cipherText));
+		std::cout << std::format("Cipher Text: {}\n", cipherText);
 		file.close();
 	} else {
 		std::cerr << std::format("Unknown Command: '{}'\n", argv[1]);
