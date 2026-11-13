@@ -110,6 +110,8 @@ main([[maybe_unused]]int argc, [[maybe_unused]]char *argv[])
 		std::string cipherText, plainText;
 		while (std::getline(file, cipherText));
 		std::cout << std::format("Cipher Text: {}\n", cipherText);
+		rcr::decrypt(cipherText, plainText);
+		std::cout << std::format("Decryption Successful!\n\n{}\n", plainText);
 		file.close();
 	} else {
 		std::cerr << std::format("Unknown Command: '{}'\n", argv[1]);
