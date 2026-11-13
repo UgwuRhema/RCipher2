@@ -89,16 +89,14 @@ namespace rcr {
 int
 main([[maybe_unused]]int argc, [[maybe_unused]]char *argv[])
 {
-	if (argv[1] != NULL) {
-		if (strcmp(argv[1], "--help") == 0 || strcmp(argv[1], "-h") == 0) {
-			/*help function just like rcipher*/
-			std::cout << std::format("RCipher2\n");
-			std::cout << std::format("Usage: rcipher2 [options] <file>\n");
-			std::cout << std::format("Options:\n");
-			std::cout << std::format("\t-o <filename>: To Create a new Cipher\n");
-			std::cout << std::format("\t-d <filename>: To Decrypt a Cipher found inside a file\n");
-			std::cout << std::format("\t--help or -h: Display this message\n");
-		}
+	if (argv[1] != NULL && (strcmp(argv[1], "--help") == 0 || strcmp(argv[1], "-h") == 0)) {
+		/*help function just like rcipher*/
+		std::cout << std::format("RCipher2\n");
+		std::cout << std::format("Usage: rcipher2 [options] <file>\n");
+		std::cout << std::format("Options:\n");
+		std::cout << std::format("\t-o <filename>: To Create a new Cipher\n");
+		std::cout << std::format("\t-d <filename>: To Decrypt a Cipher found inside a file\n");
+		std::cout << std::format("\t--help or -h: Display this message\n");
 		return 0;
 	}
 	if (argc < 3)
@@ -123,7 +121,7 @@ main([[maybe_unused]]int argc, [[maybe_unused]]char *argv[])
 		while (std::getline(file, cipherText));
 		std::cout << std::format("Cipher Text: {}\n", cipherText);
 		rcr::decrypt(cipherText, plainText);
-		std::cout << std::format("Decryption Successful!\n\n{}\n", plainText);
+		std::cout << std::format("Decryption Successful!\n{}\n", plainText);
 		file.close();
 	} else {
 		std::cerr << std::format("Unknown Command: '{}'\n", argv[1]);
